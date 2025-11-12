@@ -1,7 +1,7 @@
 {
   "name": "final-project-template",
   "version": "1.0.0",
-  "description": "",
+  "description": "This repository provides the **folder structure** for your team’s final project. All implementation is left to students.",
   "license": "ISC",
   "author": "",
   "type": "module",
@@ -26,5 +26,13 @@
     "express": "^5.1.0",
     "express-validator": "^7.2.1",
     "jsonwebtoken": "^9.0.2"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PaulRamchandani7/final-project-notakers.git"
+  },
+  "bugs": {
+    "url": "https://github.com/PaulRamchandani7/final-project-notakers/issues"
+  },
+  "homepage": "https://github.com/PaulRamchandani7/final-project-notakers#readme"
 }
