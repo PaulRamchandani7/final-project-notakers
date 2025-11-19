@@ -35,8 +35,8 @@ export async function deleteUserById(id) {
     });
 }
 
-export async function findPostsByUserId(userId) {
-    return await prisma.post.findMany({
+export async function findNotesByUserId(userId) {
+    return await prisma.note.findMany({
         where: { userId },
     });
 }

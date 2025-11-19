@@ -16,13 +16,21 @@ datasource db {
 
 model User{
   id Int @id @default(autoincrement())
-  name String @db.VarChar(50)
+  name String? @db.VarChar(50)
   email String @unique @db.VarChar(50)
-
+  password String
+  role Role @default(USER)
   notes Note[]
   studyReminders StudyReminder[]
   subjects Subject[]
+
 }
+
+enum Role {
+  USER 
+  ADMIN
+}
+
 
 model Note{
   id Int @id @default(autoincrement())
