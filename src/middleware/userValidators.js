@@ -1,27 +1,20 @@
+import { body } from 'express-validator';
 import { handleValidationErrors } from './handleValidationErrors.js';
-import { body} from 'express-validator';
 
 export const validateUser = [
-    body('email')
-    .exists({values: 'false'})
-    .withMessage('email is required')
+  body('email')
+    .exists({ checkFalsy: true }).withMessage('email is required')
     .bail()
-    .isEmail()
-    .withMessage('email is not valid')
+    .isEmail().withMessage('email is not valid')
     .normalizeEmail(),
 
-
-    body('password')
-    .exists({values: 'false'})
-    .withMessage('password is required')
+  body('password')
+    .exists({ checkFalsy: true }).withMessage('password is required')
     .bail()
-    .isLength({min: 8, max: 64})
-    .withMessage('password must contain at least 8 characters and at most 64 chracters'),
+    .isLength({ min: 8, max: 64 }).withMessage('password must be 8–64 characters'),
 
-
-    handleValidationErrors,
-
-]
+  handleValidationErrors,
+];
 
 
 export const validateUpdatedUser = [

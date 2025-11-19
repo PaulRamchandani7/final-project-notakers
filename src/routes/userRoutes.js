@@ -1,10 +1,18 @@
 import express from 'express';
-import { deleteUserHandler, getAllUsersHandler, getCurrentUser, getUserPostsHandler, updateCurrentUserHandler, updateUserRoleHandler} from '../controllers/userController.js';
+import { 
+  deleteUserHandler, 
+  getAllUsersHandler, 
+  getCurrentUser, 
+  getUserNotesHandler, 
+  updateCurrentUserHandler, 
+  updateUserRoleHandler 
+} from '../controllers/userController.js';
+
 import { authenticate } from '../middleware/authenticate.js';
 import { authorizeRoles } from '../middleware/authorizeRoles.js';
-import { validateUser, validateRole, validateUpdatedUser } from '../middleware/userValidators.js';
-const router = express.Router();
+import { validateRole, validateUpdatedUser } from '../middleware/userValidators.js';
 
+const router = express.Router();
 
 router.get('/', authenticate, authorizeRoles('ADMIN'), getAllUsersHandler);
 
@@ -14,9 +22,8 @@ router.put('/me', authenticate, validateUpdatedUser, updateCurrentUserHandler);
 
 router.delete('/me', authenticate, deleteUserHandler);
 
-router.get('/me/posts', authenticate, getUserPostsHandler);
+router.get('/me/notes', authenticate, getUserNotesHandler);
 
 router.patch('/:id/role', authenticate, authorizeRoles('ADMIN'), validateRole, updateUserRoleHandler);
-
 
 export default router;

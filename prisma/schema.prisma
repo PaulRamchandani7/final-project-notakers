@@ -5,11 +5,67 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client"
+  provider = "prisma-client-js"
   output   = "../src/generated/prisma"
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+model User{
+  id Int @id @default(autoincrement())
+  name String? @db.VarChar(50)
+  email String @unique @db.VarChar(50)
+  password String
+  role Role @default(USER)
+  notes Note[]
+  studyReminders StudyReminder[]
+  subjects Subject[]
+
+}
+
+enum Role {
+  USER 
+  ADMIN
+}
+
+
+model Note{
+  id Int @id @default(autoincrement())
+  title String
+  content String
+  createdAt DateTime @default(now())
+
+  subjects Subject[]
+  studyReminders StudyReminder[]
+  userId Int
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model StudyReminder{
+  id Int @id @default(autoincrement())
+  title String
+  details String?
+  timeStart DateTime
+  timeEnd DateTime?
+  completed Boolean @default(false)
+
+  subjects Subject[]
+  userId Int
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  noteId Int?
+  note Note? @relation(fields: [noteId], references: [id])
+}
+
+model Subject{
+  id Int @id @default(autoincrement())
+  name String 
+
+  notes Note[]
+  studyReminders StudyReminder[]
+  userId Int
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@unique([userId, name])
 }
