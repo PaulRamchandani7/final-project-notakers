@@ -6,6 +6,8 @@ import authRoutes from './routes/authRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import noteRoutes from './routes/noteRoutes.js';
 import subjectRoutes from './routes/subjectRoutes.js';
+import studyReminderRoutes from './routes/studyReminderRoutes.js'; 
+
 
 import swaggerUi from 'swagger-ui-express';
 import YAML from 'yamljs';
@@ -13,17 +15,19 @@ import YAML from 'yamljs';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
 app.use(express.json());
 app.use(cors());
 app.use(morgan('tiny'));
+
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/notes', noteRoutes);
+app.use('/api/studyReminders', studyReminderRoutes);
 app.use('/api/subject', subjectRoutes);
 
 const specs = YAML.load('./docs/openapi.yaml');
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
-
 
 app.use((req, res, next) => {
   const err = new Error('Not Found');
