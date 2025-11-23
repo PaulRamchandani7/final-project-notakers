@@ -11,9 +11,7 @@ export async function getAllRemindersHandler(req, res, next) {
     try {
         const userId = req.user.id;
         const reminders = await getAllReminders(userId);
-        res.json(reminders);
-        console.log("AUTH USER:", req.user);
-        
+        res.json(reminders);        
     } catch (err) {
         next(err);
     } 
