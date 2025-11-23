@@ -12,12 +12,12 @@ export async function getAllRemindersHandler(req, res, next) {
         const userId = req.user.id;
         const reminders = await getAllReminders(userId);
         res.json(reminders);
+        console.log("AUTH USER:", req.user);
         
     } catch (err) {
         next(err);
     } 
 }
-
   
 export async function getReminderHandler(req, res, next) {
     try {

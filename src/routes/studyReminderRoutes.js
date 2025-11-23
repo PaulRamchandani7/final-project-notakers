@@ -14,17 +14,18 @@ import {
   deleteReminderHandler,
 } from '../controllers/studyReminderController.js';
 
+import { authenticate } from '../middleware/authenticate.js';
 
 const router = express.Router();
 
-router.get('/', getAllRemindersHandler);
+router.get('/', authenticate, getAllRemindersHandler);
 
-router.get('/:id', validateReminderId, getReminderHandler);
+router.get('/:id', authenticate, validateReminderId, getReminderHandler);
 
-router.post('/', validateCreateReminder, createReminderHandler);
+router.post('/', authenticate, validateCreateReminder, createReminderHandler);
 
-router.put('/:id', validateReminderId, validateUpdateReminder, updateReminderHandler);
+router.put('/:id', authenticate, validateReminderId, validateUpdateReminder, updateReminderHandler);
 
-router.delete('/:id', validateReminderId, deleteReminderHandler);
+router.delete('/:id', authenticate, validateReminderId, deleteReminderHandler);
 
 export default router;
