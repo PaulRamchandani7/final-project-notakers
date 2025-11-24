@@ -20,6 +20,8 @@ model User{
   email String @unique @db.VarChar(50)
   password String
   role Role @default(USER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
   notes Note[]
   studyReminders StudyReminder[]
   subjects Subject[]
@@ -37,6 +39,7 @@ model Note{
   title String
   content String
   createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   subjects Subject[]
   studyReminders StudyReminder[]
@@ -51,17 +54,21 @@ model StudyReminder{
   timeStart DateTime
   timeEnd DateTime?
   completed Boolean @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   subjects Subject[]
   userId Int
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   noteId Int?
-  note Note? @relation(fields: [noteId], references: [id])
+  note Note? @relation(fields: [noteId], references: [id], onDelete: Cascade)
 }
 
 model Subject{
   id Int @id @default(autoincrement())
   name String 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   notes Note[]
   studyReminders StudyReminder[]

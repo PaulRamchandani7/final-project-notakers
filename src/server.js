@@ -10,7 +10,7 @@ import studyReminderRoutes from './routes/studyReminderRoutes.js';
 
 
 import swaggerUi from 'swagger-ui-express';
-import YAML from 'yamljs';
+import SwaggerParser from '@apidevtools/swagger-parser';
 
 
 const app = express();
@@ -26,8 +26,12 @@ app.use('/api/notes', noteRoutes);
 app.use('/api/studyReminders', studyReminderRoutes);
 app.use('/api/subject', subjectRoutes);
 
-const specs = YAML.load('./docs/openapi.yaml');
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
+try {
+  const apiSpec = await SwaggerParser.bundle('./docs/openapi.yaml');
+  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(apiSpec));
+} catch (err) {
+  console.error('Unable to generate Swagger documentation', err);
+}
 
 app.use((req, res, next) => {
   const err = new Error('Not Found');

@@ -1,0 +1,90 @@
+securitySchemes:
+  bearerAuth:
+    type: http
+    scheme: bearer
+    bearerFormat: JWT
+
+schemas:
+  User:
+    type: object
+    properties:
+      id:
+        type: integer
+      email:
+        type: string
+        format: email
+      role:
+        type: string
+        enum: [USER, ADMIN]
+      createdAt:
+        type: string
+        format: date-time
+      updatedAt:
+        type: string
+        format: date-time
+
+  Note:
+    type: object
+    properties:
+      id:
+        type: integer
+      title:
+        type: string
+      content:
+        type: string
+      userId:
+        type: integer
+      createdAt:
+        type: string
+        format: date-time
+      updatedAt:
+        type: string
+        format: date-time
+
+  Subject:
+    type: object
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+      userId:
+        type: integer
+      createdAt:
+        type: string
+        format: date-time
+      updatedAt:
+        type: string
+        format: date-time
+
+  StudyReminder:
+    type: object
+    properties:
+      id:
+        type: integer
+      title:
+        type: string
+      details:
+        type: string
+      timeStart:
+        type: string
+        format: date-time
+      timeEnd:
+        type: string
+        format: date-time
+      completed:
+        type: boolean
+      userId:
+        type: integer
+      createdAt:
+        type: string
+        format: date-time
+      updatedAt:
+        type: string
+        format: date-time
+
+  Error:
+    type: object
+    properties:
+      error:
+        type: string
