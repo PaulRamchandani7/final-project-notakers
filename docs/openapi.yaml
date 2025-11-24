@@ -1,51 +1,18 @@
 openapi: 3.1.0
 info:
-  title: NoteTaker API
+  title: NoTaker API
   version: 1.0.0
+  description: API documentation for the NoTaker application.
 
 servers:
   - url: http://localhost:3000
+    description: Local Development Server
+
+components:
+  $ref: './components.yaml'
+
+security:
+  - bearerAuth: []
 
 paths:
-
-  /api/auth/signup:
-    post:
-      summary: Create a new user account
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              required:
-                - email
-                - password
-              properties:
-                email:
-                  type: string
-                password:
-                  type: string
-      responses:
-        '201':
-          description: User created successfully
-
-  /api/auth/login:
-    post:
-      summary: Login to get an access token
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              required:
-                - email
-                - password
-              properties:
-                email:
-                  type: string
-                password:
-                  type: string
-      responses:
-        '200':
-          description: Login successful
+  $ref: './paths.yaml'

@@ -2,6 +2,8 @@ import pkg from '../generated/prisma/client.js';
 
 const { PrismaClient } = pkg;
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient({
+  datasourceUrl: process.env.DATABASE_URL
+});
 
 export default prisma;
