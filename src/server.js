@@ -32,6 +32,9 @@ try {
 } catch (err) {
   console.error('Unable to generate Swagger documentation', err);
 }
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'ok' });
+});
 
 app.use((req, res, next) => {
   const err = new Error('Not Found');
