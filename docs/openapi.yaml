@@ -7,6 +7,8 @@ info:
 servers:
   - url: http://localhost:3000
     description: Local Development Server
+  - url: https://notakers-api.onrender.com
+    description: Production server on render
 
 components:
   $ref: './components.yaml'
